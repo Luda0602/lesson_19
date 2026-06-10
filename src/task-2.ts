@@ -1,17 +1,19 @@
-const inputs = document.querySelectorAll<HTMLInputElement>("input");
+"use strict";
 
-inputs.forEach((input, index) => {
-  input.addEventListener("input", () => {
-    const value: number = Number(input.value);
+function initInputs(selector: string) {
+  const inputs = document.querySelectorAll<HTMLInputElement>(selector);
 
-    // попередні
-    for (let i = index - 1; i >= 0; i--) {
-      inputs[i].value = String(Number(inputs[i + 1].value) - 1);
-    }
+  inputs.forEach((input, index) => {
+    input.addEventListener("input", () => {
+      for (let i = index - 1; i >= 0; i--) {
+        inputs[i].value = String(Number(inputs[i + 1].value) - 1);
+      }
 
-    // наступні
-    for (let i = index + 1; i < inputs.length; i++) {
-      inputs[i].value = String(Number(inputs[i - 1].value) + 1);
-    }
+      for (let i = index + 1; i < inputs.length; i++) {
+        inputs[i].value = String(Number(inputs[i - 1].value) + 1);
+      }
+    });
   });
-});
+}
+
+initInputs("input");
